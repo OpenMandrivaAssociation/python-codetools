@@ -1,13 +1,18 @@
 %define module	codetools
 %define name 	python-%{module}
 %define version 4.0.0
-%define release %mkrel 1
+%define	rel		2
+%if %mdkversion < 201100
+%define release %mkrel %{rel}
+%else
+%define	release	%{rel}
+%endif
 
-Summary:	Enthought Tool Suite - codetools project
+Summary:	Enthought Tool Suite - code analysis and execution tools
 Name:		%{name}
 Version:	%{version}
 Release:	%{release}
-Source0:	%{module}-%{version}.tar.gz
+Source0:	http://www.enthought.com/repo/ets/%{module}-%{version}.tar.gz
 License:	BSD
 Group:		Development/Python
 Url:		http://code.enthought.com/projects/code_tools/
@@ -15,6 +20,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch:	noarch
 Requires:	python-traits >= 4.0.0
 BuildRequires:	python-setuptools >= 0.6c8
+BuildRequires:	python-setupdocs >= 1.0.5
 BuildRequires:	python-sphinx
 
 %description
@@ -35,18 +41,16 @@ project is used as the foundation for the BlockCanvas project.
 
 %build
 %__python setup.py build
-pushd docs
-make html
-popd
+%__python setup.py build_docs
 
 %install
 %__rm -rf %{buildroot}
-PYTHONDONTWRITEBYTECODE= %__python setup.py install --root=%{buildroot} --record=FILE_LIST
+PYTHONDONTWRITEBYTECODE= %__python setup.py install --root=%{buildroot}
 
 %clean
 %__rm -rf %{buildroot}
 
-%files -f FILE_LIST
+%files
 %defattr(-,root,root)
-%doc *.txt *.rst examples/ docs/build/html/
-
+%doc *.txt *.rst examples/ build/docs/html/
+%py_sitedir/%{module}*
