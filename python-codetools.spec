@@ -3,7 +3,7 @@
 Summary:	Enthought Tool Suite - codetools project
 Name:		python-%{module}
 Version:	4.1.0
-Release:	1
+Release:	2
 Source0:	%{module}-%{version}.tar.gz
 License:	BSD
 Group:		Development/Python
