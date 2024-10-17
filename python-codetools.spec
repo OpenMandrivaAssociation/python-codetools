@@ -7,7 +7,7 @@ Release:	2
 Source0:	%{module}-%{version}.tar.gz
 License:	BSD
 Group:		Development/Python
-Url:		http://code.enthought.com/projects/code_tools/
+Url:		https://code.enthought.com/projects/code_tools/
 BuildArch:	noarch
 Requires:	python-traits >= 4.0.0
 BuildRequires:	python-setuptools >= 0.6c8
